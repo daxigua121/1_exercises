@@ -52,248 +52,980 @@ They contain the input value of the corresponding I/O port.
 
 > 💡 **关键认知**：你不需要"读懂每一个词"，你只需要"找到你要的那一个参数"。就像查字典——不是为了读完整本字典，而是为了查那一个字。
 
-## 模块2：必备基础语法与句式——只讲文档中用得到的
+## 模块2：必备基础语法与句式——手把手、零基础版
 
-技术文档的语法极其有限。你只需要掌握6个核心结构，就能覆盖 90% 的阅读场景。
-
-### 2.1 主系表 — 描述"是什么"
-
-**真实例句**（RM0008 GPIO 章节）：
-
-```
-The peripheral registers have to be accessed by words (32-bit).
-```
-
-**逐词拆解**：
-
-| 部分 | 英文 | 角色 | 中文 |
-|-|-|-|-|
-| 主语 | The peripheral registers | 动作的承受者 | 外设寄存器 |
-| 谓语 | have to be accessed | 必须被访问 | 必须通过...方式被访问 |
-| 方式状语 | by words (32-bit) | 以...方式 | 以32位字的方式 |
-
-**翻译**：外设寄存器必须以32位字的方式访问。
-
-> 🔑 你已经知道STM32的寄存器是32位的，所以 `by words (32-bit)` = 按32位来读写，一次读写4个字节。
+> ⚠️ **本模块阅读指南**：如果你是英语零基础（不认识几个词、不理解"主语""谓语"是什么），请从头开始、一节一节读。每一节都配有5个以上例句和自测题。**不要跳读，不要贪快。**
 
 ---
 
-**第二例句**（UM1850 HAL_Init 描述）：
+### 2.0 预备课——三个最基本的概念（5分钟读完）
 
-```
-HAL_Init(): this function must be called at application startup to initialize data/instruction cache and pre-fetch queue.
-```
+在你正式开始之前，先弄懂三个中文里也有的概念。英文句子的"骨架"和中文其实是通的。
 
-| 部分 | 英文 | 角色 | 中文 |
-|-|-|-|-|
-| 主语 | this function | 函数（指 HAL_Init） | 此函数 |
-| 谓语 | must be called | 必须被调用 | 必须被调用 |
-| 时间状语 | at application startup | 在应用启动时 | 在应用程序启动时 |
-| 目的状语 | to initialize... | 为了初始化... | 以初始化数据/指令缓存和预取队列 |
+#### 概念一："谁/什么"——主语
 
-**翻译**：此函数必须在应用程序启动时调用，以初始化数据/指令缓存和预取队列。
+任何一个句子，首先要有一个"主角"。
 
-### 2.2 主谓宾 — 描述"做什么"
+| 中文句子 | 主角（主语） |
+|-|-|
+| **单片机** 运行在72MHz。 | 单片机 |
+| **这个引脚** 被配置为输出。 | 这个引脚 |
+| **寄存器** 是32位的。 | 寄存器 |
 
-**真实例句**（UM1850 HAL 描述）：
+对应的英文：
 
-```
-The HAL driver layer provides a simple, generic multi-instance set of APIs.
-```
+| 英文句子 | 主角（主语） |
+|-|-|
+| **The MCU** runs at 72 MHz. | The MCU |
+| **This pin** is configured as output. | This pin |
+| **The register** is 32-bit. | The register |
 
-- **主语**：The HAL driver layer → HAL驱动层
-- **谓语**：provides → 提供
-- **宾语**：a simple, generic multi-instance set of APIs → 一套简单、通用、多实例的API集合
+> 🔑 **结论**：主语就是"这句话在说谁/什么"。中文和英文的主语位置一样——都在句子开头。你把英文主语找出来，就抓住了句子的"主角"。
 
-**翻译**：HAL驱动层提供了一套简单、通用、多实例的API集合。
+#### 概念二："做什么/是什么"——谓语
 
-### 2.3 祈使句 — 指令类句子（动词原形开头，技术文档中占50%以上）
+句子有了主角之后，要告诉读者"主角做了什么"或者"主角是什么"。
 
-**真实例句**（UM1850 代码注释）：
-
-```c
-/* Configure PLLs */
-/* Enable HSE Oscillator and activate PLL with HSE as source */
-```
-
-- `Configure` = 配置（动词原形开头 = 请配置）
-- `Enable HSE Oscillator` = 使能HSE振荡器
-- `activate PLL` = 激活PLL
-
-**真实例句**（RM0008 GPIOx_CRL 寄存器描述）：
-
-```
-Refer to Table 20: Port bit configuration table.
-```
-
-- `Refer to` = 请参考（祈使句）
-- 翻译：请参考表20：端口位配置表。
-
-> 🔑 **技术文档中90%的指令句都是祈使句——动词原形开头，没有主语。** 看到 `Set...`、`Enable...`、`Configure...`、`Refer to...` 这些动词原形开头，就知道是"请做某事"。
-
-### 2.4 被动语态 — 技术文档的灵魂（描述硬件行为）
-
-这是最重要的语法结构——硬件文档大量使用被动语态来描述"芯片自己做了什么"。
-
-**真实例句1**（RM0008 GPIOx_CRL）：
-
-```
-These bits are written by software to configure the corresponding I/O port.
-```
-
-| 部分 | 英文 | 分析 |
+| 中文句子 | 主语 | 谓语（做什么/是什么） |
 |-|-|-|
-| 主语 | These bits | 这些位（被操作的对象） |
-| 被动谓语 | are written | 被写入（be + 过去分词） |
-| 动作发出者 | by software | 由软件（=你写的代码） |
-| 目的 | to configure... | 为了配置对应的I/O端口 |
+| 单片机 **运行** 在72MHz。 | 单片机 | 运行 |
+| 这个引脚 **被配置** 为输出。 | 这个引脚 | 被配置 |
+| 寄存器 **是** 32位的。 | 寄存器 | 是 |
 
-**翻译**：这些位由软件写入，以配置对应的I/O端口。
+对应的英文：
 
-> 🔑 中文技巧：被动语态翻译时去掉"被"字更通顺 → "由软件写入" 优于 "被软件写入"。
+| 英文句子 | 主语 | 谓语 |
+|-|-|-|
+| The MCU **runs** at 72 MHz. | The MCU | runs |
+| This pin **is configured** as output. | This pin | is configured |
+| The register **is** 32-bit. | The register | is |
+
+> 🔑 **结论**：谓语就是说明主语"做了什么"或"是什么"的部分。英文的谓语紧跟在主语后面，和中文语序一样。
+
+#### 概念三："对谁做/做什么"——宾语
+
+有些动作需要一个"接受者"——动作作用的对象就是宾语。
+
+| 中文句子 | 主语 | 谓语（动作） | 宾语（动作对象） |
+|-|-|-|-|
+| 软件 **写入这些位**。 | 软件 | 写入 | 这些位 |
+| 定时器 **产生一个中断**。 | 定时器 | 产生 | 一个中断 |
+| 你 **设置这个寄存器**。 | 你 | 设置 | 这个寄存器 |
+
+对应的英文：
+
+| 英文句子 | 主语 | 谓语 | 宾语 |
+|-|-|-|-|
+| Software **writesthese bits**. | Software | writes | these bits |
+| The timer **generatesan interrupt**. | The timer | generates | an interrupt |
+| You **setthe register**. | You | set | the register |
+
+> 🔑 **结论**：宾语就是动作的"承受者"。英文宾语在谓语后面，和中文语序也一样。
+
+#### 核心规律
+
+```
+英文简单句的骨架 = 主语 + 谓语 + (宾语)
+                  谁    做了什么   对谁做
+
+中文简单句的骨架 = 主语 + 谓语 + (宾语)
+                  谁    做了什么   对谁做
+
+→ 中英文最简单的句子，骨架是完全一样的！
+```
+
+> 🎯 **这是本模块最重要的认知**：英文技术文档的句子，大多数是这种"S+V+O"（主谓宾）的简单骨架句式。你不要被英文吓到——它和你中文想表达的句子结构是通的。
+
+#### 预备课自测
+
+判断以下句子各部分的角色（先别看答案）：
+
+1. `The clock enables the peripheral.` （时钟使能外设。）
+2. `The timer starts counting.` （定时器开始计数。）
+
+句1：The clock（主语，主角） + enables（谓语，动作） + the peripheral（宾语，动作对象）  
+句2：The timer（主语） + starts（谓语） + counting（宾语）
 
 ---
 
-**真实例句2**（RM0008 GPIOx_IDR）：
+### 2.1 句型一：主系表 — "A 是 B"
+
+**何时出现**：用来描述一个东西的**性质、状态、身份**。技术文档里用来告诉你"某个东西是什么"。
+
+#### 核心公式
+
+```
+主语 + is/are + 描述语（表语）
+↓
+"A 是 B"
+```
+
+| 英文 | 中文直译 |
+|-|-|
+| is | 是（单数主语用） |
+| are | 是（复数主语用） |
+
+#### 例句1（来自数据手册）
+
+```
+The GPIO port is configured as output.
+```
+
+**逐词翻译**：
+
+| 单词 | 中文 | 词性 |
+|-|-|-|
+| The | 这个 | 限定词 |
+| GPIO | 通用输入输出 | 名词缩写 |
+| port | 端口 | 名词 |
+| is | 是 | 系动词 |
+| configured | 被配置 | 动词过去分词（表示状态） |
+| as | 作为 | 介词 |
+| output | 输出 | 名词 |
+
+**翻译过程**：
+
+- 逐词拼：这个 GPIO 端口 是 被配置 作为 输出
+- 通顺化：这个GPIO端口被配置为输出模式
+
+> 🔑 你不需要记"过去分词""表语""系动词"这些术语。你只需要认出 `is = 是`，`configured = 被配置`。句子就是"某某是什么"。
+
+---
+
+#### 例句2（来自RM0008）
+
+```
+These bits are read only.
+```
+
+**逐词翻译**：
+
+| 单词 | 中文 |
+|-|-|
+| These | 这些 |
+| bits | 位 |
+| are | 是 |
+| read only | 只读（read=读，only=仅） |
+
+**翻译**：这些位是只读的。
+
+---
+
+#### 例句3（来自RM0008 GPIOx_IDR）
 
 ```
 These bits are read only and can be accessed in Word mode only.
 ```
 
-- `are read only` → 是只读的
-- `can be accessed` → 可以被访问
-- 翻译：这些位是只读的，仅能以字模式访问。
+这是一个"复合句"——用 `and` 把两个描述连在一起。先拆成两半：
+
+- 前半：`These bits are read only` → 这些位是只读的
+- 后半：`can be accessed in Word mode only` → 仅能以字模式被访问
+- 合起来：这些位是只读的，且仅能以字模式被访问。
 
 ---
 
-**真实例句3**（RM0008 GPIOx_LCKR）：
+#### 例句4（来自数据手册 Features）
 
 ```
-When the LOCK sequence has been applied on a port bit it is no longer possible to modify the value of the port bit until the next reset.
+The operating voltage is 3.3V.
 ```
 
-- `has been applied` = 已被应用（被动语态的完成式，表示"应用完锁定序列之后"）
-- `it is no longer possible` = 不再可能
-- `to modify` = 修改
-- `until the next reset` = 直到下次复位
+| 单词 | 中文 |
+|-|-|
+| The operating | 工作（的） |
+| voltage | 电压 |
+| is | 是 |
+| 3.3V | 3.3伏 |
 
-**翻译**：当锁定序列被应用到一个端口位之后，在下次复位之前就不可能再修改该端口位的值了。
-
-### 2.5 后置定语（名词短语拆解法）— 读长名词的最核心技巧
-
-英文和中文最大的语序差异：英文的修饰语放在名词**后面**，中文的修饰语放在名词**前面**。
-
-**核心技巧：从后往前拆，逐层翻译。**
+**翻译**：工作电压是3.3V。
 
 ---
 
-**实战1** — 数据手册产品标题：
+#### 例句5（来自数据手册）
 
 ```
-High-density performance line Arm-based 32-bit MCU with 256 to 512KB Flash, USB, CAN, 11 timers, 3 ADCs, 13 communication interfaces
+The maximum output current is 25mA.
 ```
 
-**从后往前逐层拆**：
+| 单词/短语 | 中文 |
+|-|-|
+| The maximum | 最大的 |
+| output | 输出 |
+| current | 电流 |
+| is | 是 |
+| 25mA | 25毫安 |
 
-| 步骤 | 英文片段 | 中文 |
+**翻译**：最大输出电流是25毫安。
+
+---
+
+#### 例句6（来自RM0008 GPIO章节）
+
+```
+The LSE oscillator pins OSC32_IN and OSC32_OUT can be used as general-purpose I/O PC14 and PC15, respectively, when the LSE oscillator is off.
+```
+
+这个句子看起来长，但**骨架还是主系表**。先抓骨架：
+
+- 主语：`The LSE oscillator pins OSC32_IN and OSC32_OUT`
+- 系动词+表语：`can be used as general-purpose I/O PC14 and PC15`
+- `when the LSE oscillator is off` → 当LSE振荡器关闭时（条件修饰）
+
+**逐词拆**：
+
+| 英文片段 | 中文 |
+|-|-|
+| The LSE oscillator pins | LSE振荡器的引脚 |
+| OSC32_IN and OSC32_OUT | OSC32_IN 和 OSC32_OUT |
+| can be used as | 可以被用作 |
+| general-purpose I/O | 通用I/O |
+| PC14 and PC15 | PC14 和 PC15 |
+| respectively | 分别地（OSC32_IN→PC14，OSC32_OUT→PC15） |
+| when the LSE oscillator is off | 当LSE振荡器关闭时 |
+
+**翻译**：当LSE振荡器关闭时，LSE振荡器引脚OSC32_IN和OSC32_OUT可分别用作通用I/O口PC14和PC15。
+
+> 🔑 **核心方法**：遇到长句子，先找 `is/are/can be`，它们前面的就是主语，后面的就是描述主语的内容。
+
+#### 本节自测（主系表）
+
+试着翻译以下句子：
+
+1. `The register is 32-bit.`
+2. `This pin is an input.`
+3. `All GPIO pins are configured as floating input by default.`
+4. 这个寄存器是32位的。
+5. 这个引脚是一个输入。
+6. 所有GPIO引脚默认被配置为浮空输入。（关键词：by default = 默认地）
+
+---
+
+### 2.2 句型二：主谓宾 — "A 做 B"
+
+**何时出现**：描述一个东西**执行了一个动作**，并且这个动作有**明确的承受对象**。
+
+#### 核心公式
+
+```
+主语 + 动作（动词） + 承受者（宾语）
+↓
+"A 做 B"
+```
+
+#### 例句1（来自UM1850 HAL描述）
+
+```
+The HAL driver layer provides a simple, generic multi-instance set of APIs.
+```
+
+**逐词拆解**：
+
+| 英文 | 中文 | 角色 |
 |-|-|-|
-| 第1层 | MCU | 微控制器 |
-| 第2层 | 32-bit MCU | 32位微控制器 |
-| 第3层 | Arm-based 32-bit MCU | 基于Arm的32位微控制器 |
-| 第4层 | High-density performance line ... | 高密度性能系列、基于Arm的32位微控制器 |
-| 第5层 | with 256 to 512KB Flash, USB, CAN... | 带有256到512KB Flash、USB、CAN、11个定时器、3个ADC、13个通信接口 |
+| The HAL driver layer | HAL驱动层 | 主语——"谁" |
+| provides | 提供 | 谓语——"做什么" |
+| a simple, generic multi-instance set of APIs | 一套简单、通用、多实例的API集合 | 宾语——"什么" |
+
+**翻译**：HAL驱动层提供了一套简单、通用、多实例的API集合。
 
 ---
 
-**实战2** — RM0008 中的名词短语：
+#### 例句2（来自RM0008）
+
+```
+The BSx bits set the corresponding ODRx bits.
+```
+
+| 英文 | 中文 |
+|-|-|
+| The BSx bits | BSx位（BSRR寄存器的低16位） |
+| set | 置位（设为1） |
+| the corresponding ODRx bits | 对应的ODRx位 |
+
+**翻译**：BSx位将对应的ODRx位置位（设为1）。
+
+> 🔑 你已经在中文课上学过：写 `GPIOA->BSRR = GPIO_PIN_0;` ——往BSRR的BS0位写1 → ODR0被置1 → PA0输出高电平。这句英文就是描述这个过程的。
+
+---
+
+#### 例句3（来自UM1850）
+
+```
+HAL_DMA_Start() starts DMA transfer.
+```
+
+| 英文 | 中文 |
+|-|-|
+| HAL_DMA_Start() | （函数名，不动） |
+| starts | 启动 |
+| DMA transfer | DMA传输 |
+
+**翻译**：HAL_DMA_Start() 启动DMA传输。
+
+---
+
+#### 例句4（来自数据手册）
+
+```
+The ADC converts an analog voltage to a 12-bit digital value.
+```
+
+| 英文 | 中文 | 角色 |
+|-|-|-|
+| The ADC | ADC（模数转换器） | 主语 |
+| converts | 转换 | 谓语 |
+| an analog voltage | 一个模拟电压 | 宾语 |
+| to a 12-bit digital value | 成为一个12位数字值 | 结果补语 |
+
+**翻译**：ADC将一个模拟电压转换为一个12位数字值。
+
+---
+
+#### 例句5（来自数据手册）
+
+```
+Each GPIO pin has eight possible configurations.
+```
+
+| 英文 | 中文 |
+|-|-|
+| Each GPIO pin | 每个GPIO引脚 |
+| has | 有 |
+| eight possible configurations | 八种可能的配置 |
+
+**翻译**：每个GPIO引脚有八种可能的配置（模式）。
+
+> 🔑 你已经在模块3看到过这8种配置：浮空输入、上拉输入、下拉输入、模拟、开漏输出、推挽输出、复用开漏、复用推挽。
+
+---
+
+#### 本节自测（主谓宾）
+
+试着翻译：
+
+1. `The timer generates an interrupt every 1ms.`
+2. `Software writes the configuration value to the register.`
+3. 定时器每1毫秒产生一个中断。（every 1ms = 每1毫秒）
+4. 软件将配置值写入寄存器。（writes ... to ... = 将...写入...）
+
+---
+
+### 2.3 句型三：祈使句 — "请做某事"
+
+**何时出现**：指令、步骤、代码注释。**这是技术文档中出现频率最高的句型之一。**
+
+#### 核心公式
+
+```
+动词原形开头（没有主语！） + 宾语 + ... 
+↓
+"(请)做某事"
+```
+
+> 🔑 **最关键的识别特征**：祈使句没有主语。中文说"请设置这个位"——缺少"你"，英文一样。看到句子开头就是动词原形，就知道这是"请做某事"。
+
+#### 例句1（来自UM1850 代码注释）
+
+```c
+/* Configure PLLs */
+```
+
+| 单词 | 中文 |
+|-|-|
+| Configure | 配置（动词原形） |
+| PLLs | 锁相环（复数） |
+
+**翻译**：配置PLL。
+
+---
+
+#### 例句2（来自UM1850 代码注释）
+
+```c
+/* Enable HSE Oscillator and activate PLL with HSE as source */
+```
+
+**逐词拆**：
+
+| 英文 | 中文 |
+|-|-|
+| Enable | 使能，开启（动词原形） |
+| HSE Oscillator | HSE振荡器 |
+| and | 并且 |
+| activate | 激活（动词原形） |
+| PLL | 锁相环 |
+| with HSE as source | 用HSE作为时钟源 |
+
+**翻译**：使能HSE振荡器，并以HSE作为时钟源激活PLL。
+
+---
+
+#### 例句3（来自RM0008）
+
+```
+Refer to Table 20: Port bit configuration table.
+```
+
+| 英文 | 中文 |
+|-|-|
+| Refer to | 请参考（动词原形短语） |
+| Table 20 | 表20 |
+| Port bit configuration table | 端口位配置表 |
+
+**翻译**：请参考表20：端口位配置表。
+
+---
+
+#### 例句4（来自RM0008 常见模式）
+
+```
+Set the bit to 1 to enable the interrupt.
+```
+
+| 英文 | 中文 |
+|-|-|
+| Set | 设，置（动词原形） |
+| the bit | 这个位 |
+| to 1 | 为1 |
+| to enable the interrupt | 以使能该中断（目的） |
+
+**翻译**：将该位置1以使能中断。
+
+---
+
+#### 例句5（来自RM0008 GPIOx_LCKR）
+
+```
+Write 1 → Write 0 → Write 1 → Read 0 → Read 1
+```
+
+这是LCKR寄存器的锁定序列。每个动词都是祈使句（原形）：
+
+| 步骤 | 英文 | 中文 |
+|-|-|-|
+| 1 | Write 1 | 写1 |
+| 2 | Write 0 | 写0 |
+| 3 | Write 1 | 写1 |
+| 4 | Read 0 | 读0 |
+| 5 | Read 1 | 读1 |
+
+---
+
+#### 技术文档最常见的祈使句开头词
+
+| 英文祈使句开头 | 中文翻译 | 在文档中出现频率 |
+|-|-|-|
+| Set... | 设置... | ⭐⭐⭐⭐⭐ |
+| Enable... | 使能... | ⭐⭐⭐⭐⭐ |
+| Disable... | 禁用... | ⭐⭐⭐⭐ |
+| Configure... | 配置... | ⭐⭐⭐⭐ |
+| Refer to... | 请参考... | ⭐⭐⭐⭐ |
+| Write... | 写入... | ⭐⭐⭐ |
+| Read... | 读取... | ⭐⭐⭐ |
+| Clear... | 清除... | ⭐⭐⭐ |
+| Check... | 检查... | ⭐⭐⭐ |
+| Ensure... | 确保... | ⭐⭐ |
+| Call... | 调用... | ⭐⭐（HAL库） |
+
+---
+
+#### 本节自测（祈使句）
+
+翻译：
+
+1. `Enable the clock for GPIOA before configuration.`
+2. `Connect VDD to a 3.3V power supply.`
+3. 在配置GPIOA之前，先使能其时钟。
+4. 将VDD连接到3.3V电源。（Connect...to... = 将...连接到...）
+
+---
+
+### 2.4 句型四：被动语态 — "被/由..."（技术文档的灵魂）
+
+**何时出现**：描述硬件自动发生的行为。"芯片自己做了什么"——技术文档中被动语态无处不在。
+
+#### 核心公式
+
+```
+主语 + is/are + 动词过去分词 + (by + 动作发出者)
+↓
+"主语 被/由 ... (动作发出者) 做了..."
+```
+
+> 🔑 **最重要的一点**：被动语态强调"事情发生了"，不强调"谁干的"。这正是数据手册的语言——芯片内部的电平变化、寄存器位的翻转，很多东西是"自动发生的"，没有人在主动做。
+
+#### 识别被动语态的"信号词"
+
+看到这些组合，就是被动语态：
+
+| 信号组合 | 含义 |
+|-|-|
+| is + 动词ed | 被...（单数主语） |
+| are + 动词ed | 被...（复数主语） |
+| can be + 动词ed | 可以被... |
+| has been + 动词ed | 已经被...（已经发生） |
+| is not + 动词ed | 没有被...（否定） |
+
+---
+
+#### 例句1（来自RM0008 GPIOx_CRL）
+
+```
+These bits are written by software.
+```
+
+**逐词拆**：
+
+| 英文 | 中文 | 角色 |
+|-|-|-|
+| These bits | 这些位 | 主语（被操作的对象） |
+| are | 被 | 被动信号 |
+| written | 写入 | 动词过去分词 |
+| by software | 由软件 | 动作发出者 |
+
+**翻译过程**：
+
+- 逐词：这些位 被 写入 由 软件
+- 通顺化：这些位由软件写入。
+
+> 🔑 **中文技巧**：英文被动句翻译成中文时，常常去掉"被"字 → "由软件写入" 比 "被软件写入" 更自然。
+
+---
+
+#### 例句2（来自RM0008 GPIOx_IDR）
+
+```
+These bits are read only.
+```
+
+| 英文 | 中文 |
+|-|-|
+| These bits | 这些位 |
+| are | 是（这里不是被动，是主系表） |
+| read only | 只读 |
+
+**翻译**：这些位是只读的。
+
+---
+
+#### 例句3（来自RM0008 GPIOx_BSRR）
+
+```
+These bits are write-only and can be accessed in Word mode only.
+```
+
+**拆解**：
+
+- `are write-only` → 是只写的
+- `can be accessed` → 可以被访问（被动语态！`can be + accessed`）
+- `in Word mode only` → 仅以字模式
+
+**翻译**：这些位是只写的，且仅能以字模式被访问。
+
+---
+
+#### 例句4（来自RM0008 GPIOx_LCKR）
+
+```
+This register is used to lock the configuration of the port bits.
+```
+
+| 英文 | 中文 |
+|-|-|
+| This register | 这个寄存器 |
+| is used | 被用于（被动语态） |
+| to lock | 来锁定（目的） |
+| the configuration | 这个配置 |
+| of the port bits | 端口位的 |
+
+**翻译**：这个寄存器被用于锁定端口位的配置。
+
+---
+
+#### 例句5（来自RM0008 GPIO功能描述）
+
+```
+The I/O port registers are accessed as 32-bit words.
+```
+
+| 英文 | 中文 |
+|-|-|
+| The I/O port registers | I/O端口寄存器 |
+| are accessed | 被访问 |
+| as 32-bit words | 作为32位字 |
+
+**翻译**：I/O端口寄存器以32位字的方式被访问。
+
+---
+
+#### 例句6（来自RM0008）
+
+```
+This bit is set by hardware when the transmit buffer is empty.
+```
+
+| 英文片段 | 中文 | 角色 |
+|-|-|-|
+| This bit | 这个位 | 主语 |
+| is set | 被置位 | 被动语态 |
+| by hardware | 由硬件 | 动作发出者 |
+| when the transmit buffer is empty | 当发送缓冲区为空时 | 时间条件 |
+
+**翻译**：当发送缓冲区为空时，此位由硬件置位。
+
+> 🔑 **对照你的中文知识**：你知道串口发送数据时，数据从发送缓冲区被取走后，TXE标志位会自动变成1。`This bit is set by hardware` 就是在说这个自动过程。
+
+---
+
+#### "by hardware" vs "by software" 速记
+
+在RM0008中，这两个短语反复出现。它们的区别非常重要：
+
+| 短语 | 含义 | 解释 |
+|-|-|-|
+| `set by hardware` | 由硬件置位 | 不需要你写代码——芯片自己会在条件满足时把这个位变成1 |
+| `cleared by hardware` | 由硬件清零 | 芯片自己会在条件满足时把这个位变成0 |
+| `written by software` | 由软件写入 | 需要你写代码来设置——你来控制 |
+| `set by software` | 由软件置位 | 需要你写代码来把这一位设成1 |
+| `cleared by software` | 由软件清零 | 需要你写代码来把这一位清成0 |
+
+**看懂这个区别，你就看懂了数据手册中80%的寄存器描述。**
+
+---
+
+#### 本节自测（被动语态）
+
+翻译以下句子，并指出是"硬件自动"还是"软件控制"：
+
+1. `The RXNE flag is set by hardware when data is received.`
+2. `The configuration bits are written by software.`
+3. `This bit is cleared by hardware after the transfer is complete.`
+4. 当接收到数据时，RXNE标志位由硬件置位。（硬件自动）
+5. 配置位由软件写入。（软件控制）
+6. 传输完成后，此位由硬件清零。（硬件自动）
+
+---
+
+### 2.5 句型五：名词短语拆解法——读长名词的最核心技巧
+
+**最大的拦路虎**：英文中会出现超长的名词短语，看起来让人头晕。
 
 ```
 the high-speed external clock source selection bit
 ```
 
-**从后往前拆**：
+但本质很简单：**英文把修饰语放在名词后面，中文把修饰语放在名词前面。**
 
-```
-bit              ←  位
-selection bit    ←  选择位
-source selection bit  ←  源选择位
-clock source selection bit  ←  时钟源选择位
-external clock source selection bit  ←  外部时钟源选择位
-high-speed external clock source selection bit  ←  高速外部时钟源选择位
-```
+#### 核心技巧（说三遍）
 
-**最终翻译**：高速外部时钟源选择位
-
-> 🔑 **口诀**：看到一长串名词，先找最后一个名词（它是核心），然后从后往前一个一个加修饰语，就是中文语序。
+> **从后往前拆，逐层翻译。**  
+> **从后往前拆，逐层翻译。**  
+> **从后往前拆，逐层翻译。**
 
 ---
 
-**实战3** — 练手题：
+#### 实战1 — 简单热身
+
+```
+the clock source
+```
+
+从后往前：
+
+- `source` → 源
+- `clock source` → 时钟的源 = 时钟源
+
+---
+
+#### 实战2 — 加一层
+
+```
+the clock source selection
+```
+
+从后往前：
+
+- `selection` → 选择
+- `clock source selection` → 对时钟源的选择 = 时钟源选择
+
+---
+
+#### 实战3 — 再加一层
+
+```
+the external clock source selection
+```
+
+从后往前：
+
+- `selection` → 选择
+- `source selection` → 源的选择
+- `clock source selection` → 时钟源的选择
+- `external clock source selection` → 外部时钟源的选择
+
+**翻译**：外部时钟源选择
+
+---
+
+#### 实战4 — 完整版
+
+```
+the high-speed external clock source selection bit
+```
+
+从后往前逐层拆：
+
+| 步骤 | 回到前一层 | 当前片段 | 累计中文 |
+|-|-|-|-|
+| 1 | → | bit | 位 |
+| 2 | ← | selection bit | 选择位 |
+| 3 | ← | source selection bit | 源选择位 |
+| 4 | ← | clock source selection bit | 时钟源选择位 |
+| 5 | ← | external clock source selection bit | 外部时钟源选择位 |
+| 6 | ← | high-speed external clock source selection bit | 高速外部时钟源选择位 |
+
+箭头方向 ← 表示你阅读的方向：从右往左，从后往前。
+
+**最终翻译**：高速外部时钟源选择位
+
+---
+
+#### 实战5 — 带 `of` 串联的
 
 ```
 the interrupt pending bit of the status register for USART1
 ```
 
-**从后往前拆**：for USART1 → of the status register → the interrupt pending bit
+`of` 表示"属于...的"，`for` 表示"对...而言"。从后往前拆：
 
-**拆解结果**：USART1 的状态寄存器的中断挂起位
+| 从后往前 | 英文片段 | 中文 |
+|-|-|-|
+| 第1层 | for USART1 | 对USART1而言的 |
+| 第2层 | of the status register | 状态寄存器的 |
+| 第3层 | the interrupt pending bit | 中断挂起位 |
 
-### 2.6 条件/时间状语从句 — "当...时"和"如果...那么"模式
+**组合**：USART1的 → 状态寄存器的 → 中断挂起位  
+**翻译**：USART1状态寄存器的中断挂起位
 
-**真实例句1**（RM0008 GPIOx_BSRR Note）：
+---
+
+#### 实战6 — 数据手册产品标题（真实长短语）
+
+```
+High-density performance line Arm-based 32-bit MCU with 256 to 512KB Flash,
+USB, CAN, 11 timers, 3 ADCs, 13 communication interfaces
+```
+
+从后往前：
+
+| 步骤 | 英文片段 | 中文 |
+|-|-|-|
+| 1 | MCU | 微控制器 |
+| 2 | 32-bit MCU | 32位微控制器 |
+| 3 | Arm-based 32-bit MCU | 基于Arm的32位微控制器 |
+| 4 | High-density performance line Arm-based... | 高密度性能系列、基于Arm的32位微控制器 |
+| 5 | with 256 to 512KB Flash... | 带有256到512KB Flash... |
+
+**翻译**：高密度性能系列、基于Arm的32位微控制器，带有256至512KB Flash、USB、CAN、11个定时器、3个ADC、13个通信接口。
+
+---
+
+#### 本节自测（名词短语拆解）
+
+用"从后往前"的方法拆解以下短语：
+
+1. `the capture/compare register`
+2. `the DMA interrupt enable bit`
+3. `the APB2 peripheral clock enable register`
+4. capture/compare register → 寄存器 ← 捕获/比较 ← **捕获/比较寄存器**
+5. DMA interrupt enable bit → 位 ← 使能 ← 中断 ← DMA → **DMA中断使能位**
+6. APB2 peripheral clock enable register → 寄存器 ← 使能 ← 时钟 ← 外设 ← APB2 → **APB2外设时钟使能寄存器**
+
+---
+
+### 2.6 句型六：条件/时间从句 — "当...时" / "如果...就"
+
+**何时出现**：描述"在某个条件下，会发生什么"。
+
+#### 核心信号词
+
+看到下面这些词开头，就知道是条件/时间从句：
+
+| 信号词 | 中文 | 用处 |
+|-|-|-|
+| When... | 当...时 | 描述"某个时间点/状态下发生什么" |
+| If... | 如果... | 描述"满足某个条件则发生什么" |
+| until... | 直到...为止 | 描述"持续到某个时间点" |
+| before... | 在...之前 | 描述前置条件 |
+| after... | 在...之后 | 描述后置行为 |
+| During... | 在...期间 | 描述"在某过程期间" |
+
+---
+
+#### 例句1（来自RM0008 GPIOx_BSRR）
 
 ```
 If both BSx and BRx are set, BSx has priority.
 ```
 
-| 部分 | 英文 | 中文 |
+**拆解**：
+
+| 英文部分 | 角色 | 中文 |
 |-|-|-|
-| 条件从句 | If both BSx and BRx are set | 如果BSx和BRx同时被置位 |
-| 主句 | BSx has priority | BSx具有优先权 |
+| If both BSx and BRx are set | 条件从句 | 如果BSx和BRx同时被置位 |
+| BSx has priority | 主句 | BSx具有优先权 |
 
 **翻译**：如果BSx和BRx同时被置位，BSx具有优先权。
 
-> 🔑 你已经知道BSRR寄存器：高16位写1清零(BR)，低16位写1置位(BS)。这句说的是——如果你不小心两边都写了1，置位(BS)生效。
+---
+
+#### 例句2（来自RM0008 GPIOx_LCKR）
+
+```
+When the LOCK sequence has been applied on a port bit,
+it is no longer possible to modify the value of the port bit
+until the next reset.
+```
+
+**分段拆解**：
+
+| 英文 | 中文 |
+|-|-|
+| When the LOCK sequence has been applied on a port bit | 当锁定序列被应用到一个端口位后 |
+| it is no longer possible | 不再可能 |
+| to modify the value of the port bit | 修改该端口位的值 |
+| until the next reset | 直到下次复位 |
+
+**翻译**：当锁定序列被应用到一个端口位后，在下次复位之前就不可能再修改该端口位的值了。
 
 ---
 
-**真实例句2**（RM0008 GPIOx_LCKR）：
+#### 例句3（来自RM0008）
 
 ```
-During the LOCK Key Writing sequence, the value of LCK[15:0] must not change.
+When the transmit buffer is empty, the TXE flag is set by hardware.
 ```
 
-- `During...` → 在...期间
-- `must not change` → 必须保持不变
-- 翻译：在锁定键写入序列期间，LCK[15:0]的值必须保持不变。
+**拆解**：
+
+| 英文 | 中文 |
+|-|-|
+| When... | 当...时 |
+| the transmit buffer is empty | 发送缓冲区为空 |
+| the TXE flag is set by hardware | TXE标志位由硬件置位 |
+
+**翻译**：当发送缓冲区为空时，TXE标志位由硬件置位。
 
 ---
 
-**高频信号词速记**：
+#### 例句4（常见HAL编程模式）
 
-| 信号词 | 含义 | 例句模式 |
-|-|-|-|
-| When... | 当...时 | `When the flag is set, an interrupt is generated.` |
-| If... | 如果... | `If the bit is set, the peripheral is enabled.` |
-| until... | 直到...为止 | `The bit remains set until cleared by software.` |
-| before... | 在...之前 | `Disable the peripheral before changing its configuration.` |
-| after... | 在...之后 | `After reset, all registers are restored to default values.` |
-| During... | 在...期间 | `During the write sequence, the value must not change.` |
+```
+Before changing the configuration, disable the peripheral.
+```
 
-### 模块2 小结
+| 英文 | 中文 |
+|-|-|
+| Before... | 在...之前 |
+| changing the configuration | 更改配置 |
+| disable the peripheral | 禁用该外设（祈使句） |
 
-你只需要记住这6个结构：
+**翻译**：在更改配置之前，先禁用该外设。
 
-1. **主系表** — `X is Y`（X是Y）
-2. **主谓宾** — `X provides Y`（X提供Y）
-3. **祈使句** — 动词原形开头 = "请做..."
-4. **被动语态** — `is/are + 过去分词` = "被/由..."
-5. **后置定语** — 从后往前拆 = 中文语序
-6. **条件从句** — `When/If...` = "当/如果..."
+---
 
-> 💡 技术文档中不会出现虚拟语气、不会出现倒装句、不会出现从句套从句。你上面学的这6个，已经够用了。
+#### 例句5（来自RM0008）
 
-## 模块3：单片机高频词汇图解——按场景分类
+```
+After reset, all registers are restored to their default values.
+```
+
+| 英文 | 中文 |
+|-|-|
+| After reset | 复位之后 |
+| all registers | 所有寄存器 |
+| are restored | 被恢复 |
+| to their default values | 到它们的默认值 |
+
+**翻译**：复位之后，所有寄存器恢复到它们的默认值。
+
+---
+
+#### 本节自测（条件/时间从句）
+
+翻译：
+
+1. `If the bit is set to 1, the interrupt is enabled.`
+2. `Wait until the flag is set by hardware before reading the data.`
+3. 如果该位被置1，中断被使能。（更通顺的翻译：该位写1则使能中断。）
+4. 在读取数据之前，等待直到该标志位由硬件置位。
+
+---
+
+### 模块2 总复习
+
+#### 六种句型速查表
+
+| 序号 | 句型 | 公式 | 识别信号 | 例子 |
+|-|-|-|-|-|
+| 1 | 主系表 | A is B | 看到 `is / are` | `The register is 32-bit.` |
+| 2 | 主谓宾 | A do B | 主语后面直接跟动词 | `The timer generates an interrupt.` |
+| 3 | 祈使句 | (请)做... | 句子开头就是动词原形 | `Set the bit to 1.` |
+| 4 | 被动语态 | A 被... | `is/are + 动词ed` | `These bits are written by software.` |
+| 5 | 名词短语 | ...的...的... | 一串名词连续出现 | `the clock source selection bit` |
+| 6 | 条件从句 | 当/如果... | `When / If / until / before / after` | `If both bits are set...` |
+
+#### 终极练习——综合阅读
+
+试着用学过的六种句型，解读以下这段来自RM0008的GPIO章节原文：
+
+```
+GPIO functional description
+
+Each of the general-purpose I/O ports has two 32-bit configuration registers.
+Each GPIO pin can be configured by software as input or output.
+The I/O port registers are accessed as 32-bit words.
+When the LOCK sequence has been applied, it is no longer possible to modify
+the port bit until the next reset.
+```
+
+**句1**：`Each of the general-purpose I/O ports has two 32-bit configuration registers.`
+
+- 句型：主谓宾（S+V+O）
+- 主语：Each of the general-purpose I/O ports → 每个通用I/O端口
+- 谓语：has → 有
+- 宾语：two 32-bit configuration registers → 两个32位配置寄存器
+- 翻译：每个通用I/O端口有两个32位配置寄存器。
+
+**句2**：`Each GPIO pin can be configured by software as input or output.`
+
+- 句型：被动语态（can be + configured）
+- 主语：Each GPIO pin → 每个GPIO引脚
+- 被动谓语：can be configured → 可以被配置
+- 动作发出者：by software → 由软件
+- 结果：as input or output → 作为输入或输出
+- 翻译：每个GPIO引脚可由软件配置为输入或输出。
+
+**句3**：`The I/O port registers are accessed as 32-bit words.`
+
+- 句型：被动语态
+- 主语：The I/O port registers
+- 被动谓语：are accessed
+- 方式：as 32-bit words
+- 翻译：I/O端口寄存器以32位字方式被访问。
+
+**句4**：`When the LOCK sequence has been applied, it is no longer possible to modify the port bit until the next reset.`
+
+- 句型：条件从句 + 主系表
+- 条件：When the LOCK sequence has been applied → 当锁定序列被应用后
+- 主句：it is no longer possible... → 不再可能...
+- 时间边界：until the next reset → 直到下次复位
+- 翻译：当锁定序列被应用后，在下次复位之前就不可能再修改该端口位了。
+
+---
+
+> 🎉 **模块2结束**。你不需要一次性全部记住。把这些句型放在手边，每次读英文文档看不懂时，回来对照这个速查表——看看眼前的句子对应哪个句型，然后用对应的公式拆它。反复几次就自然记住了。
 
 以下词汇全部从你手头的三份STM32英文原版文档中提取，按5大场景分类。每个词给出词性、中文释义、以及来自真实文档的例句。
 
