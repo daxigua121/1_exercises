@@ -1,0 +1,6 @@
+# Large PDF files
+*.pdf
+
+# Temp files
+temp_*.json
+temp_*.md
