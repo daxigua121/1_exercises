@@ -1027,135 +1027,140 @@ the port bit until the next reset.
 
 > 🎉 **模块2结束**。你不需要一次性全部记住。把这些句型放在手边，每次读英文文档看不懂时，回来对照这个速查表——看看眼前的句子对应哪个句型，然后用对应的公式拆它。反复几次就自然记住了。
 
-以下词汇全部从你手头的三份STM32英文原版文档中提取，按5大场景分类。每个词给出词性、中文释义、以及来自真实文档的例句。
+## 模块3：单片机高频词汇图解——按场景分类（带音标版）
+
+以下词汇全部从你手头的三份STM32英文原版文档中提取，按5大场景分类。每个词给出**音标（IPA）**、词性、中文释义、以及来自真实文档的例句。
 
 > 🎯 **使用方式**：不需要背。每天开始读文档前花3分钟过一遍最近常出现的词，同一个词在三份文档里会出现几百上千次，看到第十遍就自然记住了。
+> 
+> 🔊 **音标说明**：采用国际音标（IPA），帮助你建立"看到词→脑中读出声音"的连接，从而更容易记住单词。
 
 ### 3.1 引脚与电气类（Pin & Electrical）
 
 *来源：RM0008 GPIO章节 + 数据手册 Features页*
 
-| 单词 | 词性 | 释义 | 真实例句（来源） |
-|-|-|-|-|
-| pin | n. | 引脚 | `This pin can be used as a digital input.` |
-| port | n. | 端口 | `Each of the general-purpose I/O ports has two 32-bit configuration registers.`（RM0008） |
-| output | n. | 输出 | `In output mode (MODE[1:0]\>00): General purpose output push-pull`（RM0008 GPIOx_CRL） |
-| input | n. | 输入 | `In input mode (MODE[1:0]=00): Floating input (reset state)`（RM0008 GPIOx_CRL） |
-| floating | adj. | 浮空的 | `Input floating`（RM0008 GPIOx_CRL） |
-| pull-up | n. | 上拉 | `Input with pull-up / pull-down`（RM0008 GPIOx_CRL） |
-| pull-down | n. | 下拉 | `Input with pull-up / pull-down`（RM0008 GPIOx_CRL） |
-| open-drain | n. | 开漏 | `General purpose output Open-drain`（RM0008 GPIOx_CRL） |
-| push-pull | n. | 推挽 | `Alternate function output Push-pull`（RM0008 GPIOx_CRL） |
-| analog | adj. | 模拟 | `Analog mode`（RM0008 GPIOx_CRL） |
-| alternate function | n. | 复用功能 | `Alternate function output Push-pull`（RM0008 GPIOx_CRL） |
-| remap | v. | 重映射 | `it is possible to remap some alternate functions to some other pins`（RM0008 AFIO章节） |
-| voltage | n. | 电压 | `The operating voltage is 3.3V.` |
-| ground (GND) | n. | 地 | `Connect the ground pin to the common ground.` |
-| high / low | adj. | 高电平 / 低电平 | `A high level on this pin enables the device.` |
-| rising edge | n. | 上升沿 | 数据手册Timer特性中高频出现 |
-| falling edge | n. | 下降沿 | 数据手册Timer特性中高频出现 |
-| capability | n. | 能力，功能 | `Output push-pull with pull-up or pull-down capability`（RM0008） |
+| 单词 | 音标 | 词性 | 释义 | 真实例句（来源） |
+|-|-|-|-|-|
+| pin | /pɪn/ | n. | 引脚 | `This pin can be used as a digital input.` |
+| port | /pɔːrt/ | n. | 端口 | `Each of the general-purpose I/O ports has two 32-bit configuration registers.`（RM0008） |
+| output | /ˈaʊtpʊt/ | n. | 输出 | `In output mode (MODE[1:0]\>00): General purpose output push-pull`（RM0008 GPIOx_CRL） |
+| input | /ˈɪnpʊt/ | n. | 输入 | `In input mode (MODE[1:0]=00): Floating input (reset state)`（RM0008 GPIOx_CRL） |
+| floating | /ˈfloʊtɪŋ/ | adj. | 浮空的 | `Input floating`（RM0008 GPIOx_CRL） |
+| pull-up | /ˈpʊl ʌp/ | n. | 上拉 | `Input with pull-up / pull-down`（RM0008 GPIOx_CRL） |
+| pull-down | /ˈpʊl daʊn/ | n. | 下拉 | `Input with pull-up / pull-down`（RM0008 GPIOx_CRL） |
+| open-drain | /ˈoʊpən dreɪn/ | n. | 开漏 | `General purpose output Open-drain`（RM0008 GPIOx_CRL） |
+| push-pull | /ˈpʊʃ pʊl/ | n. | 推挽 | `Alternate function output Push-pull`（RM0008 GPIOx_CRL） |
+| analog | /ˈænəlɔːɡ/ | adj. | 模拟 | `Analog mode`（RM0008 GPIOx_CRL） |
+| alternate function | /ˈɔːltərnət ˈfʌŋkʃən/ | n. | 复用功能 | `Alternate function output Push-pull`（RM0008 GPIOx_CRL） |
+| remap | /riːˈmæp/ | v. | 重映射 | `it is possible to remap some alternate functions to some other pins`（RM0008 AFIO章节） |
+| voltage | /ˈvoʊltɪdʒ/ | n. | 电压 | `The operating voltage is 3.3V.` |
+| ground (GND) | /ɡraʊnd/ | n. | 地 | `Connect the ground pin to the common ground.` |
+| high | /haɪ/ | adj. | 高电平 | `A high level on this pin enables the device.` |
+| low | /loʊ/ | adj. | 低电平 | `A low level on this pin disables the device.` |
+| rising edge | /ˈraɪzɪŋ edʒ/ | n. | 上升沿 | 数据手册Timer特性中高频出现 |
+| falling edge | /ˈfɔːlɪŋ edʒ/ | n. | 下降沿 | 数据手册Timer特性中高频出现 |
+| capability | /ˌkeɪpəˈbɪləti/ | n. | 能力，功能 | `Output push-pull with pull-up or pull-down capability`（RM0008） |
 
 ### 3.2 时钟与电源类（Clock & Power）
 
 *来源：RM0008 RCC章节 + UM1850 时钟配置代码注释*
 
-| 单词 | 词性 | 释义 | 真实例句（来源） |
-|-|-|-|-|
-| clock | n. | 时钟 | `set SysTick timer to generate an interrupt each 1ms (based on HSI clock)`（UM1850 HAL_Init） |
-| oscillator | n. | 振荡器 | `Enable HSE Oscillator and activate PLL with HSE as source`（UM1850 代码注释） |
-| HSE | abbr. | 高速外部振荡器 | `HSE Oscillator` |
-| HSI | abbr. | 高速内部振荡器 | `based on HSI clock`（UM1850） |
-| PLL | abbr. | 锁相环 | `PLL configuration: PLLCLK = PREDIV1CLK \* PLLMUL = 8 \* 9 = 72 MHz`（UM1850 代码注释） |
-| prescaler | n. | 预分频器 | RM0008定时器章节高频词 |
-| divider | n. | 分频器 | `configure the HCLK, PCLK1 and PCLK2 clocks dividers`（UM1850） |
-| frequency | n. | 频率 | `72 MHz maximum frequency`（数据手册 Features） |
-| crystal | n. | 晶振 | `An external 32.768 kHz crystal is required for the RTC.` |
-| enable | v. | 使能，开启 | `Enable the clock for GPIOA.` |
-| disable | v. | 禁用，关闭 | `disables the specified DMA channel`（UM1850 \_\_HAL_DMA_DISABLE） |
-| reset | n./v. | 复位 | `Reset value: 0x4444 4444`（RM0008 GPIOx_CRL） |
-| standby | n./adj. | 待机 | `the 1.8 V domain is powered off (by entering standby mode)`（RM0008 GPIO章末尾） |
-| wake-up | n. | 唤醒 | 数据手册电源管理章节高频词 |
-| low-power | adj. | 低功耗的 | 数据手册 Features |
+| 单词 | 音标 | 词性 | 释义 | 真实例句（来源） |
+|-|-|-|-|-|
+| clock | /klɒk/ | n. | 时钟 | `set SysTick timer to generate an interrupt each 1ms (based on HSI clock)`（UM1850 HAL_Init） |
+| oscillator | /ˈɒsɪleɪtər/ | n. | 振荡器 | `Enable HSE Oscillator and activate PLL with HSE as source`（UM1850 代码注释） |
+| HSE | /eɪtʃ es iː/ | abbr. | 高速外部振荡器 | `HSE Oscillator` |
+| HSI | /eɪtʃ es aɪ/ | abbr. | 高速内部振荡器 | `based on HSI clock`（UM1850） |
+| PLL | /piː el el/ | abbr. | 锁相环 | `PLL configuration: PLLCLK = PREDIV1CLK \* PLLMUL = 8 \* 9 = 72 MHz`（UM1850 代码注释） |
+| prescaler | /priːˈskeɪlər/ | n. | 预分频器 | RM0008定时器章节高频词 |
+| divider | /dɪˈvaɪdər/ | n. | 分频器 | `configure the HCLK, PCLK1 and PCLK2 clocks dividers`（UM1850） |
+| frequency | /ˈfriːkwənsi/ | n. | 频率 | `72 MHz maximum frequency`（数据手册 Features） |
+| crystal | /ˈkrɪstl/ | n. | 晶振 | `An external 32.768 kHz crystal is required for the RTC.` |
+| enable | /ɪˈneɪbl/ | v. | 使能，开启 | `Enable the clock for GPIOA.` |
+| disable | /dɪsˈeɪbl/ | v. | 禁用，关闭 | `disables the specified DMA channel`（UM1850 \_\_HAL_DMA_DISABLE） |
+| reset | /ˈriːset/ | n./v. | 复位 | `Reset value: 0x4444 4444`（RM0008 GPIOx_CRL） |
+| standby | /ˈstændbaɪ/ | n./adj. | 待机 | `the 1.8 V domain is powered off (by entering standby mode)`（RM0008 GPIO章末尾） |
+| wake-up | /ˈweɪk ʌp/ | n. | 唤醒 | 数据手册电源管理章节高频词 |
+| low-power | /loʊ ˈpaʊər/ | adj. | 低功耗的 | 数据手册 Features |
 
 ### 3.3 寄存器与控制类（Register & Control）⭐ 最重要
 
 *来源：RM0008 GPIO 寄存器描述页——这是你阅读数据手册最需要攻克的词汇区*
 
-| 单词 | 词性 | 释义 | 真实例句（来源） |
-|-|-|-|-|
-| register | n. | 寄存器 | `Port configuration register low (GPIOx_CRL)`（RM0008） |
-| bit | n. | 位 | `Bits 31:30 CNFy[1:0]: Port x configuration bits`（RM0008 GPIOx_CRL） |
-| set | v. | 置位（设为1） | `1: Set the corresponding ODRx bit`（RM0008 GPIOx_BSRR） |
-| clear | v. | 清除（设为0） | `clears the DMA channel pending flags`（UM1850） |
-| reset | v. | 复位（设为0） | `1: Reset the corresponding ODRx bit`（RM0008 GPIOx_BSRR） |
-| flag | n. | 标志位 | `gets the DMA channel pending flags`（UM1850） |
-| pending | adj. | 挂起的，待处理的 | `DMA channel pending flags`（UM1850） |
-| trigger | v./n. | 触发 | 数据手册/参考手册高频词 |
-| reserved | adj. | 保留的 | `Bits 31:16 Reserved, must be kept at reset value.`（RM0008 GPIOx_IDR） |
-| mask | v./n. | 屏蔽 / 掩码 | 中断章节高频词 |
-| read | v. | 读 | `These bits are read only`（RM0008 GPIOx_IDR） |
-| write | v. | 写，写入 | `These bits are written by software`（RM0008 GPIOx_CRL） |
-| access | v./n. | 访问 | `can be accessed in Word mode only`（RM0008 GPIOx_IDR） |
-| offset | n. | 偏移 | `Address offset: 0x00`（RM0008 每个寄存器描述开头） |
-| read-only (ro) | adj. | 只读 | `These bits are read only`（RM0008） |
-| read-write (rw) | adj. | 可读写 | 寄存器位描述中 `rw` 标记高频出现 |
-| write-only (w) | adj. | 只写 | `These bits are write-only`（RM0008 GPIOx_BSRR） |
-| value | n. | 值 | `Reset value: 0x4444 4444`（RM0008） |
-| address | n. | 地址 | `Address offset: 0x00`（RM0008） |
+| 单词 | 音标 | 词性 | 释义 | 真实例句（来源） |
+|-|-|-|-|-|
+| register | /ˈredʒɪstər/ | n. | 寄存器 | `Port configuration register low (GPIOx_CRL)`（RM0008） |
+| bit | /bɪt/ | n. | 位 | `Bits 31:30 CNFy[1:0]: Port x configuration bits`（RM0008 GPIOx_CRL） |
+| set | /set/ | v. | 置位（设为1） | `1: Set the corresponding ODRx bit`（RM0008 GPIOx_BSRR） |
+| clear | /klɪər/ | v. | 清除（设为0） | `clears the DMA channel pending flags`（UM1850） |
+| reset | /ˈriːset/ | v. | 复位（设为0） | `1: Reset the corresponding ODRx bit`（RM0008 GPIOx_BSRR） |
+| flag | /flæɡ/ | n. | 标志位 | `gets the DMA channel pending flags`（UM1850） |
+| pending | /ˈpendɪŋ/ | adj. | 挂起的，待处理的 | `DMA channel pending flags`（UM1850） |
+| trigger | /ˈtrɪɡər/ | v./n. | 触发 | 数据手册/参考手册高频词 |
+| reserved | /rɪˈzɜːrvd/ | adj. | 保留的 | `Bits 31:16 Reserved, must be kept at reset value.`（RM0008 GPIOx_IDR） |
+| mask | /mæsk/ | v./n. | 屏蔽 / 掩码 | 中断章节高频词 |
+| read | /riːd/ | v. | 读 | `These bits are read only`（RM0008 GPIOx_IDR） |
+| write | /raɪt/ | v. | 写，写入 | `These bits are written by software`（RM0008 GPIOx_CRL） |
+| access | /ˈækses/ | v./n. | 访问 | `can be accessed in Word mode only`（RM0008 GPIOx_IDR） |
+| offset | /ˈɒfset/ | n. | 偏移 | `Address offset: 0x00`（RM0008 每个寄存器描述开头） |
+| read-only (ro) | /riːd ˈoʊnli/ | adj. | 只读 | `These bits are read only`（RM0008） |
+| read-write (rw) | /riːd raɪt/ | adj. | 可读写 | 寄存器位描述中 `rw` 标记高频出现 |
+| write-only (w) | /raɪt ˈoʊnli/ | adj. | 只写 | `These bits are write-only`（RM0008 GPIOx_BSRR） |
+| value | /ˈvæljuː/ | n. | 值 | `Reset value: 0x4444 4444`（RM0008） |
+| address | /əˈdres/ | n. | 地址 | `Address offset: 0x00`（RM0008） |
 
 ### 3.4 外设与接口类（Peripherals & Interfaces）
 
 *来源：数据手册 Features 页 + RM0008 目录*
 
-| 单词 | 词性 | 释义 | 真实例句（来源） |
-|-|-|-|-|
-| GPIO | abbr. | 通用输入输出 | `General-purpose and alternate-function I/Os (GPIOs and AFIOs)`（RM0008 章节标题） |
-| USART/UART | abbr. | 通用同步/异步收发器 | `USART1`（UM1850 代码示例） |
-| SPI | abbr. | 串行外设接口 | 数据手册 Features 通信接口列表 |
-| I2C | abbr. | 集成电路互联总线 | `I2C interfaces (SMBus/PMBus)`（数据手册） |
-| ADC | abbr. | 模数转换器 | `3 ADCs`（数据手册 Features 标题） |
-| DAC | abbr. | 数模转换器 | `2 x 16-bit basic timers to drive the DAC`（数据手册 Features） |
-| DMA | abbr. | 直接存储器访问 | `HAL_DMA_Start()`（UM1850） |
-| timer | n. | 定时器 | `11 timers`（数据手册 Features） |
-| watchdog | n. | 看门狗 | `2 x watchdog timers (Independent and Window)`（数据手册 Features） |
-| NVIC | abbr. | 嵌套向量中断控制器 | `HAL_NVIC_SetPriority()`（UM1850） |
-| peripheral | n. | 外设 | HAL 文档中 PPP = peripheral |
-| bus | n. | 总线 | `APB2 bus clocks are up to 72 MHz.` |
-| baud rate | n. | 波特率 | `UartHandle.Init.BaudRate = 9600;`（UM1850） |
-| interface | n. | 接口 | `13 communication interfaces`（数据手册 Features） |
-| memory | n. | 存储器/内存 | `256 to 512 Kbytes of Flash memory`（数据手册 Features） |
-| SRAM | abbr. | 静态随机存取存储器 | `up to 64 Kbytes of SRAM`（数据手册 Features） |
-| Flash | n. | 闪存 | `256 to 512 Kbytes of Flash memory`（数据手册 Features） |
+| 单词 | 音标 | 词性 | 释义 | 真实例句（来源） |
+|-|-|-|-|-|
+| GPIO | /dʒiː piː aɪ oʊ/ | abbr. | 通用输入输出 | `General-purpose and alternate-function I/Os (GPIOs and AFIOs)`（RM0008 章节标题） |
+| USART/UART | /ˈjuːsɑːrt/ / /ˈjuːɑːrt/ | abbr. | 通用同步/异步收发器 | `USART1`（UM1850 代码示例） |
+| SPI | /es piː aɪ/ | abbr. | 串行外设接口 | 数据手册 Features 通信接口列表 |
+| I2C | /aɪ skweər siː/ 或 /aɪ tuː siː/ | abbr. | 集成电路互联总线 | `I2C interfaces (SMBus/PMBus)`（数据手册） |
+| ADC | /eɪ diː siː/ | abbr. | 模数转换器 | `3 ADCs`（数据手册 Features 标题） |
+| DAC | /diː eɪ siː/ | abbr. | 数模转换器 | `2 x 16-bit basic timers to drive the DAC`（数据手册 Features） |
+| DMA | /diː em eɪ/ | abbr. | 直接存储器访问 | `HAL_DMA_Start()`（UM1850） |
+| timer | /ˈtaɪmər/ | n. | 定时器 | `11 timers`（数据手册 Features） |
+| watchdog | /ˈwɒtʃdɒɡ/ | n. | 看门狗 | `2 x watchdog timers (Independent and Window)`（数据手册 Features） |
+| NVIC | /en viː aɪ siː/ | abbr. | 嵌套向量中断控制器 | `HAL_NVIC_SetPriority()`（UM1850） |
+| peripheral | /pəˈrɪfərəl/ | n. | 外设 | HAL 文档中 PPP = peripheral |
+| bus | /bʌs/ | n. | 总线 | `APB2 bus clocks are up to 72 MHz.` |
+| baud rate | /bɔːd reɪt/ | n. | 波特率 | `UartHandle.Init.BaudRate = 9600;`（UM1850） |
+| interface | /ˈɪntərfeɪs/ | n. | 接口 | `13 communication interfaces`（数据手册 Features） |
+| memory | /ˈmeməri/ | n. | 存储器/内存 | `256 to 512 Kbytes of Flash memory`（数据手册 Features） |
+| SRAM | /es ræm/ | abbr. | 静态随机存取存储器 | `up to 64 Kbytes of SRAM`（数据手册 Features） |
+| Flash | /flæʃ/ | n. | 闪存 | `256 to 512 Kbytes of Flash memory`（数据手册 Features） |
 
 ### 3.5 编程与状态类（Programming & Status）
 
 *来源：UM1850 HAL库手册*
 
-| 单词 | 词性 | 释义 | 真实例句（来源） |
-|-|-|-|-|
-| initialize | v. | 初始化 | `This function must be called at application startup to initialize...`（UM1850 HAL_Init） |
-| configure | v. | 配置 | `configure the HCLK, PCLK1 and PCLK2 clocks dividers`（UM1850） |
-| callback | n. | 回调函数 | `call HAL_MspInit() user callback function`（UM1850） |
-| weak | adj. | 弱定义的 | `\_\_weak HAL_PPP_ProcessCpltCallback()`（UM1850） |
-| handle | n. | 句柄 | `UART_HandleTypeDef UartHandle;`（UM1850 代码示例） |
-| instance | n. | 实例 | `UartHandle.Init.Instance = USART1;`（UM1850 代码示例） |
-| status | n. | 状态 | `HAL_StatusTypeDef`（UM1850） |
-| timeout | n. | 超时 | `A timeout (expressed in ms) is used to prevent process hanging.`（UM1850） |
-| interrupt | n. | 中断 | `generate an interrupt each 1ms`（UM1850 HAL_Init） |
-| polling | n. | 轮询 | `Polling mode I/O operation`（UM1850） |
-| transmit (TX) | v. | 发送 | `HAL_UART_SendIT(&UartHandle, TxBuffer, ...)`（UM1850） |
-| receive (RX) | v. | 接收 | `HAL_PPP_Receive(...)`（UM1850） |
-| buffer | n. | 缓冲区 | `TxBuffer`（UM1850 代码示例） |
-| abort | v. | 中止 | `Use HAL_DMA_Abort() function to abort the current transfer`（UM1850） |
-| process | n./v. | 过程/处理 | `the process completion`（UM1850） |
-| multi-instance | adj. | 多实例的 | `generic multi-instance set of APIs`（UM1850 Introduction） |
-| portability | n. | 可移植性 | `ensuring maximized portability across the STM32 portfolio`（UM1850 Introduction） |
-| API | abbr. | 应用程序编程接口 | HAL API, LL API（UM1850） |
-| mode | n. | 模式 | `Polling mode / Interrupt mode / DMA mode`（UM1850） |
-| error | n. | 错误 | `HAL_PPP_ErrorCallback`（UM1850） |
-| complete | adj./v. | 完成 | `Transmission complete`（UM1850/参考手册） |
-| idle | adj. | 空闲的 | `IDLE line detected`（RM0008 USART_SR） |
+| 单词 | 音标 | 词性 | 释义 | 真实例句（来源） |
+|-|-|-|-|-|
+| initialize | /ɪˈnɪʃəlaɪz/ | v. | 初始化 | `This function must be called at application startup to initialize...`（UM1850 HAL_Init） |
+| configure | /kənˈfɪɡjər/ | v. | 配置 | `configure the HCLK, PCLK1 and PCLK2 clocks dividers`（UM1850） |
+| callback | /ˈkɔːlbæk/ | n. | 回调函数 | `call HAL_MspInit() user callback function`（UM1850） |
+| weak | /wiːk/ | adj. | 弱定义的 | `\_\_weak HAL_PPP_ProcessCpltCallback()`（UM1850） |
+| handle | /ˈhændl/ | n. | 句柄 | `UART_HandleTypeDef UartHandle;`（UM1850 代码示例） |
+| instance | /ˈɪnstəns/ | n. | 实例 | `UartHandle.Init.Instance = USART1;`（UM1850 代码示例） |
+| status | /ˈsteɪtəs/ | n. | 状态 | `HAL_StatusTypeDef`（UM1850） |
+| timeout | /ˈtaɪmaʊt/ | n. | 超时 | `A timeout (expressed in ms) is used to prevent process hanging.`（UM1850） |
+| interrupt | /ˌɪntəˈrʌpt/ | n. | 中断 | `generate an interrupt each 1ms`（UM1850 HAL_Init） |
+| polling | /ˈpoʊlɪŋ/ | n. | 轮询 | `Polling mode I/O operation`（UM1850） |
+| transmit (TX) | /trænzˈmɪt/ | v. | 发送 | `HAL_UART_SendIT(&UartHandle, TxBuffer, ...)`（UM1850） |
+| receive (RX) | /rɪˈsiːv/ | v. | 接收 | `HAL_PPP_Receive(...)`（UM1850） |
+| buffer | /ˈbʌfər/ | n. | 缓冲区 | `TxBuffer`（UM1850 代码示例） |
+| abort | /əˈbɔːrt/ | v. | 中止 | `Use HAL_DMA_Abort() function to abort the current transfer`（UM1850） |
+| process | /ˈprɒses/ | n./v. | 过程/处理 | `the process completion`（UM1850） |
+| multi-instance | /ˈmʌlti ˈɪnstəns/ | adj. | 多实例的 | `generic multi-instance set of APIs`（UM1850 Introduction） |
+| portability | /ˌpɔːrtəˈbɪləti/ | n. | 可移植性 | `ensuring maximized portability across the STM32 portfolio`（UM1850 Introduction） |
+| API | /eɪ piː aɪ/ | abbr. | 应用程序编程接口 | HAL API, LL API（UM1850） |
+| mode | /moʊd/ | n. | 模式 | `Polling mode / Interrupt mode / DMA mode`（UM1850） |
+| error | /ˈerər/ | n. | 错误 | `HAL_PPP_ErrorCallback`（UM1850） |
+| complete | /kəmˈpliːt/ | adj./v. | 完成 | `Transmission complete`（UM1850/参考手册） |
+| idle | /ˈaɪdl/ | adj. | 空闲的 | `IDLE line detected`（RM0008 USART_SR） |
 
 ### 3.6 词根词缀速记法——帮你猜生词
 
@@ -1163,15 +1168,27 @@ the port bit until the next reset.
 
 | 词根/词缀 | 含义 | 文档中的实例 |
 |-|-|-|
-| **re-** | 重新/再次 | `reset`（复位=重新设定）、`remap`（重映射）、`restore`（恢复） |
-| **pre-** | 预先/之前 | `prescaler`（预分频器）、`pre-fetch queue`（预取队列，UM1850 HAL_Init） |
-| **-able / -ible** | 可...的 | `programmable`（可编程的）、`configurable`（可配置的）、`available`（可用的） |
-| **con- / com-** | 共同/一起 | `configure`（配置）、`communication`（通信）、`complete`（完成） |
-| **-er / -or** | ...器 | `oscillator`（振荡器）、`controller`（控制器）、`divider`（分频器）、`counter`（计数器）、`buffer`（缓冲器） |
-| **inter-** | 之间/相互 | `interrupt`（中断）、`interface`（接口）、`interconnect`（互联） |
-| **trans-** | 跨越/传输 | `transmit`（发送）、`transfer`（传输）、`transceiver`（收发器） |
+| **re-** | 重新/再次 | `reset` /ˈriːset/（复位=重新设定）、`remap` /riːˈmæp/（重映射）、`restore` /rɪˈstɔːr/（恢复） |
+| **pre-** | 预先/之前 | `prescaler` /priːˈskeɪlər/（预分频器）、`pre-fetch queue` /priː fetʃ kjuː/（预取队列，UM1850 HAL_Init） |
+| **-able / -ible** | 可...的 | `programmable` /ˈproʊɡræməbl/（可编程的）、`configurable` /kənˈfɪɡjərəbl/（可配置的）、`available` /əˈveɪləbl/（可用的） |
+| **con- / com-** | 共同/一起 | `configure` /kənˈfɪɡjər/（配置）、`communication` /kəˌmjuːnɪˈkeɪʃn/（通信）、`complete` /kəmˈpliːt/（完成） |
+| **-er / -or** | ...器 | `oscillator` /ˈɒsɪleɪtər/（振荡器）、`controller` /kənˈtroʊlər/（控制器）、`divider` /dɪˈvaɪdər/（分频器）、`counter` /ˈkaʊntər/（计数器）、`buffer` /ˈbʌfər/（缓冲器） |
+| **inter-** | 之间/相互 | `interrupt` /ˌɪntəˈrʌpt/（中断）、`interface` /ˈɪntərfeɪs/（接口）、`interconnect` /ˌɪntərkəˈnekt/（互联） |
+| **trans-** | 跨越/传输 | `transmit` /trænzˈmɪt/（发送）、`transfer` /trænsˈfɜːr/（传输）、`transceiver` /trænˈsiːvər/（收发器） |
 
 > 💡 举例：你在文档中看到 `programmable prescaler` → `program`（编程）+ `-able`（可...的）= 可编程的，`pre`（预先）+ `scaler`（缩放器）= 预分频器 → 合起来：**可编程预分频器**。即使没见过这个词也能猜出来。
+
+### 🔊 音标快速入门——5个关键符号帮你读出任何词
+
+音标不需要全部学会。记住以下5个最常用的符号就够了：
+
+| 符号 | 发音提示 | 例词 |
+|-|-|-|
+| /ɪ/ | 短音"衣"，嘴巴放松 | `bit` /bɪt/ |
+| /iː/ | 长音"衣"，嘴角拉开 | `read` /riːd/ |
+| /æ/ | "爱"，嘴巴张大 | `flag` /flæɡ/ |
+| /ə/ | 轻轻"呃"，最常用的弱读音 | `register` /ˈredʒɪst**ə**r/ |
+| /ˈ/ | 重音标记（后面的音节读重一点） | `conˈfigure` → con**fi**gure |
 
 ## 模块4：寄存器描述速读法——用RM0008真实寄存器实战
 
